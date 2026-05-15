@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бизнес-Ландшафт | Цифровые решения</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<button class="theme-toggle" id="themeToggle">🌙</button>
+
+<canvas id="particleCanvas"></canvas>
+
+<header>
+    <div class="container">
+        <div class="logo">🏢 ЛАНДШАФТ</div>
+        <nav>
+            <a href="#home">Главная</a>
+            <a href="#services">Услуги</a>
+            <a href="#pricing">Цены</a>
+            <a href="#calculator">Калькулятор</a>
+            <a href="#contacts">Контакты</a>
+        </nav>
+    </div>
+</header>
+
+<section id="home" class="hero">
+    <div class="container">
+        <h1>Цифровые решения <span>для бизнеса</span></h1>
+        <p>Автоматизация, аналитика, рост — под ключ</p>
+        <div class="promo-block">
+            <div class="promo-card">
+                <div class="promo-icon">🎁</div>
+                <div class="promo-content">
+                    <span class="promo-label">Промокод на скидку 10%</span>
+                    <div class="promo-code">LAND2025</div>
+                </div>
+                <button class="copy-btn" id="copyPromoBtn">📋 Скопировать</button>
+            </div>
+            <span id="copyMsg" class="copy-message"></span>
+        </div>
+        <button class="btn modal-open">Заказать консультацию</button>
+    </div>
+</section>
+
+<section id="services" class="services">
+    <div class="container">
+        <h2>Что мы предлагаем</h2>
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="tab1">Разработка</button>
+            <button class="tab-btn" data-tab="tab2">Маркетинг</button>
+            <button class="tab-btn" data-tab="tab3">Аналитика</button>
+        </div>
+        <div id="tab1" class="tab-content active">
+            <p>Сайты, CRM, мобильные приложения — полный цикл разработки.</p>
+        </div>
+        <div id="tab2" class="tab-content">
+            <p>SEO, контекстная реклама, SMM — привлекаем клиентов.</p>
+        </div>
+        <div id="tab3" class="tab-content">
+            <p>Сквозная аналитика, дашборды, прогнозы продаж.</p>
+        </div>
+    </div>
+</section>
+
+<section id="pricing" class="pricing">
+    <div class="container">
+        <h2>Выберите тариф</h2>
+        <div class="billing-toggle">
+            <button class="billing-btn active" data-period="month">В месяц</button>
+            <button class="billing-btn" data-period="year">В год (скидка 20%)</button>
+        </div>
+        <div class="price-cards">
+            <div class="price-card" data-month="5000" data-year="48000">
+                <div class="price-icon">🚀</div>
+                <h3>Старт</h3>
+                <div class="price">5 000 ₽</div>
+                <ul>
+                    <li>✅ 1 сайт</li>
+                    <li>✅ Базовая поддержка</li>
+                    <li>✅ 5 ГБ хранилища</li>
+                </ul>
+                <button class="btn-small modal-open">Выбрать</button>
+            </div>
+            <div class="price-card popular" data-month="15000" data-year="144000">
+                <div class="badge">🔥 Популярный</div>
+                <div class="price-icon">💼</div>
+                <h3>Бизнес</h3>
+                <div class="price">15 000 ₽</div>
+                <ul>
+                    <li>✅ До 5 сайтов</li>
+                    <li>✅ 24/7 поддержка</li>
+                    <li>✅ 50 ГБ хранилища</li>
+                </ul>
+                <button class="btn-small modal-open">Выбрать</button>
+            </div>
+            <div class="price-card" data-month="30000" data-year="288000">
+                <div class="price-icon">👑</div>
+                <h3>Корпоративный</h3>
+                <div class="price">30 000 ₽</div>
+                <ul>
+                    <li>✅ Неограниченно</li>
+                    <li>✅ Личный менеджер</li>
+                    <li>✅ 500 ГБ хранилища</li>
+                </ul>
+                <button class="btn-small modal-open">Выбрать</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="calculator" class="calculator">
+    <div class="container">
+        <h2>Расчёт стоимости проекта</h2>
+        <div class="calculator-card">
+            <div class="calc-group">
+                <label>Тип сайта</label>
+                <select id="calcType">
+                    <option value="5000">Сайт-визитка — 5 000 ₽</option>
+                    <option value="15000">Интернет-магазин — 15 000 ₽</option>
+                    <option value="30000">CRM с нуля — 30 000 ₽</option>
+                </select>
+            </div>
+            <div class="calc-group">
+                <label>Дополнительные опции</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="calcSEO" value="5000"> SEO-оптимизация (+5 000 ₽)</label>
+                    <label><input type="checkbox" id="calcAdmin" value="7000"> Админ-панель (+7 000 ₽)</label>
+                    <label><input type="checkbox" id="calcDesign" value="10000"> Уникальный дизайн (+10 000 ₽)</label>
+                    <label><input type="checkbox" id="calcUrgent" value="8000"> Срочность (до 3 дней) (+8 000 ₽)</label>
+                </div>
+            </div>
+            <div class="calc-result">
+                Итого: <strong id="calcResult">5 000 ₽</strong>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contacts" class="contacts">
+    <div class="container">
+        <h2>Свяжитесь с нами</h2>
+        <form id="contactForm">
+            <input type="text" placeholder="Имя" required>
+            <input type="tel" placeholder="Телефон" required>
+            <button type="submit">Отправить заявку</button>
+            <p class="form-message"></p>
+        </form>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>© 2025 Бизнес-Ландшафт</p>
+    </div>
+</footer>
+
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h3>Оставьте заявку</h3>
+        <form id="modalForm">
+            <input type="text" placeholder="Имя" required>
+            <input type="tel" placeholder="Телефон" required>
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
