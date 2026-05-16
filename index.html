@@ -2,15 +2,15 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Бизнес-Ландшафт | Цифровые решения</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<button class="theme-toggle" id="themeToggle">🌙</button>
+<canvas id="bgCanvas"></canvas>
 
-<canvas id="particleCanvas"></canvas>
+<button class="theme-toggle" id="themeToggle">🌙</button>
 
 <header>
     <div class="container">
@@ -27,10 +27,11 @@
 
 <section id="home" class="hero">
     <div class="container">
-        <h1>Цифровые решения <span>для бизнеса</span></h1>
+        <div class="hero-badge">⚡ Цифровая экосистема</div>
+        <h1>Цифровые решения <span class="gradient-text">для бизнеса</span></h1>
         <p>Автоматизация, аналитика, рост — под ключ</p>
         <div class="promo-block">
-            <div class="promo-card">
+            <div class="promo-card glass-card">
                 <div class="promo-icon">🎁</div>
                 <div class="promo-content">
                     <span class="promo-label">Промокод на скидку 10%</span>
@@ -40,7 +41,7 @@
             </div>
             <span id="copyMsg" class="copy-message"></span>
         </div>
-        <button class="btn modal-open">Заказать консультацию</button>
+        <button class="btn hologram-btn modal-open">✨ Заказать консультацию</button>
     </div>
 </section>
 
@@ -52,13 +53,16 @@
             <button class="tab-btn" data-tab="tab2">Маркетинг</button>
             <button class="tab-btn" data-tab="tab3">Аналитика</button>
         </div>
-        <div id="tab1" class="tab-content active">
+        <div id="tab1" class="tab-content active glass-card">
+            <div class="tab-icon">💻</div>
             <p>Сайты, CRM, мобильные приложения — полный цикл разработки.</p>
         </div>
-        <div id="tab2" class="tab-content">
+        <div id="tab2" class="tab-content glass-card">
+            <div class="tab-icon">📈</div>
             <p>SEO, контекстная реклама, SMM — привлекаем клиентов.</p>
         </div>
-        <div id="tab3" class="tab-content">
+        <div id="tab3" class="tab-content glass-card">
+            <div class="tab-icon">📊</div>
             <p>Сквозная аналитика, дашборды, прогнозы продаж.</p>
         </div>
     </div>
@@ -72,7 +76,7 @@
             <button class="billing-btn" data-period="year">В год (скидка 20%)</button>
         </div>
         <div class="price-cards">
-            <div class="price-card" data-month="5000" data-year="48000">
+            <div class="price-card glass-card" data-month="5000" data-year="48000">
                 <div class="price-icon">🚀</div>
                 <h3>Старт</h3>
                 <div class="price">5 000 ₽</div>
@@ -81,9 +85,9 @@
                     <li>✅ Базовая поддержка</li>
                     <li>✅ 5 ГБ хранилища</li>
                 </ul>
-                <button class="btn-small modal-open">Выбрать</button>
+                <button class="btn-small hologram-btn modal-open">Выбрать</button>
             </div>
-            <div class="price-card popular" data-month="15000" data-year="144000">
+            <div class="price-card popular glass-card" data-month="15000" data-year="144000">
                 <div class="badge">🔥 Популярный</div>
                 <div class="price-icon">💼</div>
                 <h3>Бизнес</h3>
@@ -93,9 +97,9 @@
                     <li>✅ 24/7 поддержка</li>
                     <li>✅ 50 ГБ хранилища</li>
                 </ul>
-                <button class="btn-small modal-open">Выбрать</button>
+                <button class="btn-small hologram-btn modal-open">Выбрать</button>
             </div>
-            <div class="price-card" data-month="30000" data-year="288000">
+            <div class="price-card glass-card" data-month="30000" data-year="288000">
                 <div class="price-icon">👑</div>
                 <h3>Корпоративный</h3>
                 <div class="price">30 000 ₽</div>
@@ -104,7 +108,7 @@
                     <li>✅ Личный менеджер</li>
                     <li>✅ 500 ГБ хранилища</li>
                 </ul>
-                <button class="btn-small modal-open">Выбрать</button>
+                <button class="btn-small hologram-btn modal-open">Выбрать</button>
             </div>
         </div>
     </div>
@@ -113,7 +117,7 @@
 <section id="calculator" class="calculator">
     <div class="container">
         <h2>Расчёт стоимости проекта</h2>
-        <div class="calculator-card">
+        <div class="calculator-card glass-card">
             <div class="calc-group">
                 <label>Тип сайта</label>
                 <select id="calcType">
@@ -157,7 +161,7 @@
 </footer>
 
 <div class="modal" id="modal">
-    <div class="modal-content">
+    <div class="modal-content glass-card">
         <span class="modal-close">&times;</span>
         <h3>Оставьте заявку</h3>
         <form id="modalForm">

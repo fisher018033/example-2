@@ -1,8 +1,8 @@
 // ========== ТЕМА ==========
 const themeToggle = document.getElementById('themeToggle');
 themeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-    themeToggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+    document.body.classList.toggle('light');
+    themeToggle.textContent = document.body.classList.contains('light') ? '🌙' : '☀️';
 });
 
 // ========== ПЛАВНЫЙ СКРОЛЛ ==========
@@ -17,7 +17,7 @@ document.querySelectorAll('nav a').forEach(anchor => {
     });
 });
 
-// ========== ПЕРЕКЛЮЧЕНИЕ ТАРИФОВ ==========
+// ========== ТАРИФЫ (МЕСЯЦ/ГОД) ==========
 let period = 'month';
 document.querySelectorAll('.billing-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -104,11 +104,10 @@ if (modalForm) {
     });
 }
 
-// ========== ЭФФЕКТ ЧАСТИЦ НА КАНВАСЕ (АХУЕННЫЙ ФОН) ==========
-const canvas = document.getElementById('particleCanvas');
+// ========== CANVAS ФОН (СЕВЕРНОЕ СИЯНИЕ) ==========
+const canvas = document.getElementById('bgCanvas');
 const ctx = canvas.getContext('2d');
-let particles = [];
-let hue = 0;
+let stars = [];
 
 function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -117,85 +116,63 @@ function resizeCanvas() {
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
-class Particle {
-    constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 0.5;
-        this.speedX = (Math.random() - 0.5) * 0.3;
-        this.speedY = (Math.random() - 0.5) * 0.3;
-        this.color = `hsl(${Math.random() * 60 + 200}, 70%, 60%)`;
-    }
-    update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x < 0) this.x = canvas.width;
-        if (this.x > canvas.width) this.x = 0;
-        if (this.y < 0) this.y = canvas.height;
-        if (this.y > canvas.height) this.y = 0;
-    }
-    draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-    }
+// Звёзды
+for (let i = 0; i < 150; i++) {
+    stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 1.8 + 0.3,
+        alpha: Math.random() * 0.6 + 0.2,
+        speed: 0.008 + Math.random() * 0.015
+    });
 }
 
-function initParticles() {
-    particles = [];
-    for (let i = 0; i < 150; i++) {
-        particles.push(new Particle());
-    }
-}
-
-function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    // Градиентный фон (динамический)
-    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    if (document.body.classList.contains('dark')) {
-        gradient.addColorStop(0, '#0a0f1f');
-        gradient.addColorStop(0.5, '#141a2e');
-        gradient.addColorStop(1, '#0a0f1f');
+function drawBackground() {
+    const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    if (document.body.classList.contains('light')) {
+        grad.addColorStop(0, '#e8f0ff');
+        grad.addColorStop(1, '#d4e2fc');
     } else {
-        gradient.addColorStop(0, '#e8f0ff');
-        gradient.addColorStop(0.5, '#d4e2fc');
-        gradient.addColorStop(1, '#e8f0ff');
+        grad.addColorStop(0, '#05070a');
+        grad.addColorStop(0.5, '#0a0f1f');
+        grad.addColorStop(1, '#05070a');
     }
-    ctx.fillStyle = gradient;
+    ctx.fillStyle = grad;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    // Мерцающие звёзды/частицы
-    particles.forEach(p => {
-        p.update();
-        p.draw();
+    // Звёзды
+    stars.forEach(s => {
+        s.alpha += s.speed;
+        if (s.alpha > 0.8 || s.alpha < 0.2) s.speed *= -1;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 240, 200, ${s.alpha * 0.7})`;
+        ctx.fill();
     });
     
-    // Добавляем несколько крупных "звезд" с сиянием
-    for (let i = 0; i < 30; i++) {
-        ctx.beginPath();
-        ctx.arc((i * 131) % canvas.width, (i * 253) % canvas.height, 1.5, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 200, ${0.3 + Math.sin(Date.now() * 0.001 + i) * 0.2})`;
-        ctx.fill();
-    }
-    
-    // Северное сияние / неоновые блики
-    ctx.globalCompositeOperation = 'lighter';
-    for (let i = 0; i < 8; i++) {
-        const x = (Date.now() * 0.05 + i * 100) % (canvas.width + 400) - 200;
-        const y = canvas.height * 0.3 + Math.sin(Date.now() * 0.002 + i) * 50;
-        const gradientBlur = ctx.createRadialGradient(x, y, 20, x, y, 150);
-        gradientBlur.addColorStop(0, `hsla(${hue + i * 20}, 80%, 60%, 0.15)`);
-        gradientBlur.addColorStop(1, `hsla(${hue + i * 20}, 80%, 60%, 0)`);
-        ctx.fillStyle = gradientBlur;
+    // Северное сияние (голубовато-зелёные туманности)
+    for (let i = 0; i < 4; i++) {
+        const x = (Date.now() * 0.03 + i * 180) % (canvas.width + 500) - 250;
+        const y = canvas.height * 0.4 + Math.sin(Date.now() * 0.002 + i) * 70;
+        const gradient = ctx.createRadialGradient(x, y, 30, x, y, 200);
+        if (document.body.classList.contains('light')) {
+            gradient.addColorStop(0, `rgba(37, 99, 235, 0.08)`);
+            gradient.addColorStop(1, `rgba(37, 99, 235, 0)`);
+        } else {
+            gradient.addColorStop(0, `rgba(59, 130, 246, 0.12)`);
+            gradient.addColorStop(1, `rgba(59, 130, 246, 0)`);
+        }
+        ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
-    ctx.globalCompositeOperation = 'source-over';
-    
-    hue = (hue + 0.3) % 360;
-    requestAnimationFrame(animateParticles);
 }
 
-initParticles();
-animateParticles();
+function animate() {
+    drawBackground();
+    requestAnimationFrame(animate);
+}
+animate();
+
+// Перерисовка при смене темы
+const themeObserver = new MutationObserver(() => drawBackground());
+themeObserver.observe(document.body, { attributes: true });
