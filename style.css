@@ -4,11 +4,6 @@
     box-sizing: border-box;
 }
 
-:root {
-    --accent: #2563eb;
-    --accent-glow: #3b82f6;
-}
-
 html, body {
     min-height: 100vh;
     width: 100%;
@@ -27,7 +22,6 @@ body.light {
     background: #eef2ff;
 }
 
-/* CANVAS ФОН (СЕВЕРНОЕ СИЯНИЕ) */
 #bgCanvas {
     position: fixed;
     top: 0;
@@ -47,7 +41,6 @@ body.light {
     z-index: 2;
 }
 
-/* GLASS CARD */
 .glass-card {
     background: rgba(15, 20, 35, 0.55);
     backdrop-filter: blur(12px);
@@ -60,7 +53,6 @@ body.light .glass-card {
     border: 1px solid rgba(0,0,0,0.1);
 }
 
-/* КНОПКА ТЕМЫ */
 .theme-toggle {
     position: fixed;
     top: 20px;
@@ -81,7 +73,6 @@ body.light .theme-toggle {
     border: 1px solid rgba(0,0,0,0.1);
 }
 
-/* HEADER */
 header {
     position: sticky;
     top: 0;
@@ -127,7 +118,6 @@ nav a {
     font-size: 0.95rem;
 }
 
-/* HERO */
 .hero {
     padding: 80px 0 60px;
     text-align: center;
@@ -161,7 +151,6 @@ nav a {
     opacity: 0.8;
 }
 
-/* ПРОМОКОД */
 .promo-block {
     margin: 30px 0;
     display: flex;
@@ -217,8 +206,8 @@ nav a {
     color: #16a34a;
 }
 
-/* КНОПКИ */
-.hologram-btn, .btn, .btn-small, .contacts button, .modal-content button {
+/* ОСНОВНЫЕ КНОПКИ */
+.btn, .contacts button, .modal-content button, .billing-btn, .price-btn {
     background: linear-gradient(135deg, #2563eb, #1d4ed8);
     color: white;
     border: none;
@@ -229,17 +218,32 @@ nav a {
     transition: 0.2s;
 }
 
-.hologram-btn:hover, .btn:hover, .btn-small:hover, .contacts button:hover {
+.btn:hover, .contacts button:hover, .billing-btn:hover, .price-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(37,99,235,0.3);
 }
 
-.btn-small {
-    padding: 8px 20px;
+/* КНОПКИ ПЕРЕКЛЮЧЕНИЯ МЕСЯЦ/ГОД */
+.billing-btn {
+    padding: 10px 24px;
+    font-size: 0.9rem;
+    background: rgba(37,99,235,0.3);
+    backdrop-filter: blur(4px);
+}
+
+.billing-btn.active {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    box-shadow: 0 2px 8px rgba(37,99,235,0.3);
+}
+
+/* КНОПКИ В ТАРИФАХ */
+.price-btn {
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px 24px;
     font-size: 0.9rem;
 }
 
-/* ТАБЫ */
 .tabs {
     display: flex;
     gap: 15px;
@@ -280,12 +284,6 @@ body.light .tab-btn {
     display: block;
 }
 
-.tab-icon {
-    font-size: 2rem;
-    margin-bottom: 12px;
-}
-
-/* ТАРИФЫ */
 .pricing {
     padding: 80px 0;
 }
@@ -364,7 +362,6 @@ body.light .price {
     font-size: 0.9rem;
 }
 
-/* КАЛЬКУЛЯТОР */
 .calculator {
     padding: 80px 0;
 }
@@ -429,7 +426,6 @@ body.light .calc-group select {
     font-size: 1.8rem;
 }
 
-/* КОНТАКТЫ */
 .contacts {
     padding: 80px 0;
 }
@@ -462,7 +458,6 @@ body.light .contacts input {
     color: #16a34a;
 }
 
-/* ФУТЕР */
 footer {
     background: rgba(0,0,0,0.3);
     text-align: center;
@@ -474,7 +469,6 @@ body.light footer {
     background: rgba(0,0,0,0.05);
 }
 
-/* МОДАЛКА */
 .modal {
     display: none;
     position: fixed;
@@ -524,202 +518,54 @@ body.light .modal-content input {
     margin-top: 10px;
 }
 
-/* ========== МОБИЛЬНАЯ АДАПТАЦИЯ ========== */
+/* МОБИЛЬНАЯ АДАПТАЦИЯ */
 @media (max-width: 768px) {
-    .container {
-        padding: 0 16px;
-    }
-    
-    .hero {
-        padding: 50px 0 40px;
-    }
-    
-    .hero h1 {
-        font-size: 2rem;
-    }
-    
-    .hero p {
-        font-size: 0.95rem;
-    }
-    
-    .hero-badge {
-        font-size: 0.7rem;
-    }
-    
-    .promo-card {
-        flex-direction: column;
-        text-align: center;
-        padding: 16px;
-        gap: 12px;
-    }
-    
-    .promo-code {
-        font-size: 1.1rem;
-    }
-    
-    .copy-btn {
-        padding: 6px 16px;
-        font-size: 0.8rem;
-    }
-    
-    .btn, .hologram-btn {
-        padding: 10px 24px;
-        font-size: 0.9rem;
-    }
-    
-    .tabs {
-        gap: 10px;
-    }
-    
-    .tab-btn {
-        padding: 8px 20px;
-        font-size: 0.85rem;
-    }
-    
-    .tab-content {
-        padding: 25px;
-        font-size: 0.9rem;
-    }
-    
-    .pricing h2, .services h2, .calculator h2, .contacts h2 {
-        font-size: 1.6rem;
-        margin-bottom: 30px;
-    }
-    
-    .price-cards {
-        gap: 20px;
-    }
-    
-    .price-card {
-        width: 100%;
-        max-width: 320px;
-        padding: 20px;
-    }
-    
-    .price {
-        font-size: 1.5rem;
-    }
-    
-    .calculator-card {
-        padding: 25px;
-    }
-    
-    .calc-group label {
-        font-size: 0.9rem;
-    }
-    
-    .calc-group select {
-        padding: 10px 16px;
-        font-size: 0.9rem;
-    }
-    
-    .checkbox-group label {
-        font-size: 0.85rem;
-    }
-    
-    .calc-result {
-        font-size: 1.2rem;
-    }
-    
-    .calc-result strong {
-        font-size: 1.5rem;
-    }
-    
-    .contacts input {
-        padding: 12px 16px;
-        font-size: 0.9rem;
-    }
-    
-    .modal-content {
-        padding: 25px;
-    }
-    
-    .modal-content h3 {
-        font-size: 1.2rem;
-    }
-    
-    footer {
-        padding: 20px 0;
-        font-size: 0.8rem;
-    }
-    
-    header .container {
-        flex-direction: column;
-        text-align: center;
-        gap: 10px;
-    }
-    
-    nav {
-        justify-content: center;
-        gap: 15px;
-    }
-    
-    nav a {
-        font-size: 0.8rem;
-    }
-    
-    .logo {
-        font-size: 1.3rem;
-    }
-    
-    .theme-toggle {
-        top: 12px;
-        right: 12px;
-        padding: 5px 12px;
-        font-size: 0.9rem;
-    }
-    
-    .billing-toggle {
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-    
-    .billing-btn {
-        padding: 8px 20px;
-        font-size: 0.85rem;
-    }
+    .container { padding: 0 16px; }
+    .hero { padding: 50px 0 40px; }
+    .hero h1 { font-size: 2rem; }
+    .hero p { font-size: 0.95rem; }
+    .hero-badge { font-size: 0.7rem; }
+    .promo-card { flex-direction: column; text-align: center; padding: 16px; gap: 12px; }
+    .promo-code { font-size: 1.1rem; }
+    .copy-btn { padding: 6px 16px; font-size: 0.8rem; }
+    .btn { padding: 10px 24px; font-size: 0.9rem; }
+    .tabs { gap: 10px; }
+    .tab-btn { padding: 8px 20px; font-size: 0.85rem; }
+    .tab-content { padding: 25px; font-size: 0.9rem; }
+    .pricing h2, .services h2, .calculator h2, .contacts h2 { font-size: 1.6rem; margin-bottom: 30px; }
+    .price-cards { gap: 20px; }
+    .price-card { width: 100%; max-width: 320px; padding: 20px; }
+    .price { font-size: 1.5rem; }
+    .price-btn { padding: 8px 16px; font-size: 0.85rem; }
+    .calculator-card { padding: 25px; }
+    .calc-group label { font-size: 0.9rem; }
+    .calc-group select { padding: 10px 16px; font-size: 0.9rem; }
+    .checkbox-group label { font-size: 0.85rem; }
+    .calc-result { font-size: 1.2rem; }
+    .calc-result strong { font-size: 1.5rem; }
+    .contacts input { padding: 12px 16px; font-size: 0.9rem; }
+    .modal-content { padding: 25px; }
+    .modal-content h3 { font-size: 1.2rem; }
+    footer { padding: 20px 0; font-size: 0.8rem; }
+    header .container { flex-direction: column; text-align: center; gap: 10px; }
+    nav { justify-content: center; gap: 15px; }
+    nav a { font-size: 0.8rem; }
+    .logo { font-size: 1.3rem; }
+    .theme-toggle { top: 12px; right: 12px; padding: 5px 12px; font-size: 0.9rem; }
+    .billing-toggle { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .billing-btn { padding: 8px 20px; font-size: 0.85rem; }
 }
 
 @media (max-width: 480px) {
-    .hero h1 {
-        font-size: 1.6rem;
-    }
-    
-    .price-card {
-        padding: 16px;
-    }
-    
-    .price-icon {
-        font-size: 1.6rem;
-    }
-    
-    .price-card h3 {
-        font-size: 1.1rem;
-    }
-    
-    .price {
-        font-size: 1.3rem;
-    }
-    
-    .price-card li {
-        font-size: 0.8rem;
-    }
-    
-    .calculator-card {
-        padding: 20px;
-    }
-    
-    .checkbox-group label {
-        font-size: 0.8rem;
-    }
-    
-    nav {
-        gap: 10px;
-    }
-    
-    nav a {
-        font-size: 0.7rem;
-    }
+    .hero h1 { font-size: 1.6rem; }
+    .price-card { padding: 16px; }
+    .price-icon { font-size: 1.6rem; }
+    .price-card h3 { font-size: 1.1rem; }
+    .price { font-size: 1.3rem; }
+    .price-card li { font-size: 0.8rem; }
+    .price-btn { padding: 8px 12px; font-size: 0.8rem; }
+    .calculator-card { padding: 20px; }
+    .checkbox-group label { font-size: 0.8rem; }
+    nav { gap: 10px; }
+    nav a { font-size: 0.7rem; }
 }

@@ -90,7 +90,7 @@ if (contactForm) {
 // ========== МОДАЛКА ЗАЯВКИ ==========
 const modal = document.getElementById('modal');
 const modalForm = document.getElementById('modalForm');
-document.querySelectorAll('.modal-open').forEach(btn => {
+document.querySelectorAll('.modal-open, .price-btn').forEach(btn => {
     btn.addEventListener('click', () => modal.style.display = 'flex');
 });
 document.querySelector('.modal-close')?.addEventListener('click', () => modal.style.display = 'none');
@@ -117,13 +117,14 @@ window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
 // Звёзды
-for (let i = 0; i < 150; i++) {
+for (let i = 0; i < 200; i++) {
     stars.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        size: Math.random() * 1.8 + 0.3,
+        size: Math.random() * 2 + 0.5,
         alpha: Math.random() * 0.6 + 0.2,
-        speed: 0.008 + Math.random() * 0.015
+        speed: 0.005 + Math.random() * 0.01,
+        pulse: Math.random() * Math.PI * 2
     });
 }
 
@@ -133,37 +134,43 @@ function drawBackground() {
         grad.addColorStop(0, '#e8f0ff');
         grad.addColorStop(1, '#d4e2fc');
     } else {
-        grad.addColorStop(0, '#05070a');
-        grad.addColorStop(0.5, '#0a0f1f');
-        grad.addColorStop(1, '#05070a');
+        grad.addColorStop(0, '#020617');
+        grad.addColorStop(0.4, '#0a0f1f');
+        grad.addColorStop(0.7, '#0f172a');
+        grad.addColorStop(1, '#020617');
     }
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    // Звёзды
+    // Мерцающие звёзды
     stars.forEach(s => {
-        s.alpha += s.speed;
-        if (s.alpha > 0.8 || s.alpha < 0.2) s.speed *= -1;
+        const twinkle = 0.5 + Math.sin(Date.now() * 0.002 + s.pulse) * 0.3;
         ctx.beginPath();
-        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 240, 200, ${s.alpha * 0.7})`;
+        ctx.arc(s.x, s.y, s.size * twinkle, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 240, 200, ${s.alpha * twinkle})`;
         ctx.fill();
     });
     
-    // Северное сияние (голубовато-зелёные туманности)
-    for (let i = 0; i < 4; i++) {
-        const x = (Date.now() * 0.03 + i * 180) % (canvas.width + 500) - 250;
-        const y = canvas.height * 0.4 + Math.sin(Date.now() * 0.002 + i) * 70;
-        const gradient = ctx.createRadialGradient(x, y, 30, x, y, 200);
-        if (document.body.classList.contains('light')) {
-            gradient.addColorStop(0, `rgba(37, 99, 235, 0.08)`);
-            gradient.addColorStop(1, `rgba(37, 99, 235, 0)`);
-        } else {
-            gradient.addColorStop(0, `rgba(59, 130, 246, 0.12)`);
-            gradient.addColorStop(1, `rgba(59, 130, 246, 0)`);
+    // Северное сияние (многослойное, зелёно-голубое)
+    const time = Date.now() * 0.001;
+    for (let layer = 0; layer < 4; layer++) {
+        for (let i = 0; i < 5; i++) {
+            const x = (time * 0.08 + layer * 150 + i * 180) % (canvas.width + 600) - 300;
+            const y = canvas.height * (0.3 + layer * 0.08) + Math.sin(time * 0.5 + i + layer) * 50;
+            const radius = 180 + layer * 40;
+            const gradient = ctx.createRadialGradient(x, y, 20, x, y, radius);
+            if (document.body.classList.contains('light')) {
+                gradient.addColorStop(0, `rgba(37, 99, 235, 0.06)`);
+                gradient.addColorStop(1, `rgba(37, 99, 235, 0)`);
+            } else {
+                const opacity = 0.08 - layer * 0.01;
+                gradient.addColorStop(0, `rgba(34, 211, 238, ${opacity})`);
+                gradient.addColorStop(0.4, `rgba(59, 130, 246, ${opacity * 0.7})`);
+                gradient.addColorStop(1, `rgba(0, 0, 0, 0)`);
+            }
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 }
 
@@ -173,6 +180,5 @@ function animate() {
 }
 animate();
 
-// Перерисовка при смене темы
 const themeObserver = new MutationObserver(() => drawBackground());
 themeObserver.observe(document.body, { attributes: true });
